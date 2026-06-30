@@ -71,7 +71,7 @@ while [ $# -gt 0 ]; do
     case $1 in
 	    -h | --help) usage 0;;
 	    --swc-cli-path) SWC_CLI_PATH=$(realpath $2);;
-	    -o | --output) OUTPUT_DIR=$(realpath $2);;
+	    -o | --output) OUTPUT_DIR=$(realpath -m $2);;
 	    --swc-cli-options) SWC_CLI_OPTIONS="@$(realpath $2)";;
 	    --arch) CARCH="$2";;
 	    --) shift; break;;
@@ -148,6 +148,7 @@ if ! [[ -f "$QPKG_LIST" ]]; then
 fi
 
 mkdir -p "$QAPKS_CACHE_DIR"
+mkdir -p "$OUTPUT_DIR"
 
 # Download need qapks and put them into a folder that matches the api of swcenter
 msg "Downloading required APKS"
@@ -161,9 +162,6 @@ mkdir -p "$QPKG_DEST"
 for pkg in $missing_qpkgs; do
   pkg_name="${pkg%/*}"
   pkg_version="${pkg#*/}"
-
-  echo "$pkg_name"
-  echo "$pkg_version"
 
   mkdir -p "$QAPKS_CACHE_DIR/$pkg_name"
   mv "$QPKG_DEST/downloads/${pkg_name}_${pkg_version}.qpkg" "$QAPKS_CACHE_DIR/$pkg_name/$pkg_version"
