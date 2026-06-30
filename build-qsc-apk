@@ -2,10 +2,10 @@
 # SPDX-FileCopyrightText: 2026, BlackBerry Limited
 # SPDX-License-Identifier: Apache-2.0
 
-readonly PROGNAME="build-qsc-apks"
+readonly PROGNAME="build-qsc-apk"
 
 function usage() {
-    echo "Usage: build-qsc-apks <repository> [options]
+    echo "Usage: build-qsc-apk <repository> [options]
 
 QNX's APK-based Image Generator
 
@@ -28,7 +28,7 @@ Options:
 
 
 function msg() {
-    echo "[build-qnx-apks] $*"
+    echo "[build-qnx-apk] $*"
 }
 
 function get_needed_qpkgs() {
